@@ -1,6 +1,6 @@
 {
     "ignorePatterns": [
-        {"pattern": "^http://localhost:8080"},
+        {"pattern": "^http://0.0.0.0:8080"},
         {"pattern": "^https://calendar.google.com/calendar"}
     ],
     "replacementPatterns": [

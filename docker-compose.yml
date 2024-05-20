@@ -748,7 +748,7 @@ services:
         soft: 65536
         hard: 65536
     ports:
-      - "9200"
+      - "80:9200"
     logging: *logging
 
   # *****
@@ -857,7 +857,7 @@ services:
       otelcol:
         condition: service_started
     healthcheck:
-      test: [ "CMD", "wget", "--spider", "localhost:11633" ]
+      test: [ "CMD", "wget", "--spider", "0.0.0.0:11633" ]
       interval: 1s
       timeout: 3s
       retries: 60

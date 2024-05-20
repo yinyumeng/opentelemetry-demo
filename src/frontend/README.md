@@ -9,7 +9,7 @@ by two layers.
 ## Build Locally
 
 By running `docker compose up` at the root of the project you'll have access to the
-frontend client by going to <http://localhost:8080/>.
+frontend client by going to <http://0.0.0.0:8080/>.
 
 ## Local development
 
@@ -23,4 +23,4 @@ from the root folder.
 
 It will start all of the required backend services
 and within the container simply run `npm run dev`.
-After that the app should be available at <http://localhost:8080/>.
+After that the app should be available at <http://0.0.0.0:8080/>.

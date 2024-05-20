@@ -33,7 +33,7 @@ const FrontendTracer = (collectorString: string) => {
   provider.addSpanProcessor(
     new BatchSpanProcessor(
       new OTLPTraceExporter({
-        url: NEXT_PUBLIC_OTEL_EXPORTER_OTLP_TRACES_ENDPOINT || collectorString || 'http://localhost:4318/v1/traces',
+        url: NEXT_PUBLIC_OTEL_EXPORTER_OTLP_TRACES_ENDPOINT || collectorString || 'http://0.0.0.0:4318/v1/traces',
       }),
       {
         scheduledDelayMillis: 500,

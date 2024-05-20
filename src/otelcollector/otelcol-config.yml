@@ -1,6 +1,11 @@
 # Copyright The OpenTelemetry Authors
 # SPDX-License-Identifier: Apache-2.0
 
+extensions:
+  sigv4auth:
+    region: "__AWS_REGION__"
+    service: "osis"
+    
 receivers:
   otlp:
     protocols:
@@ -34,6 +39,22 @@ exporters:
       tls:
         insecure: true
 
+  otlphttp/traces:
+    traces_endpoint: "https://__REPLACE_WITH_OtelTraces_ENDPOINT__"
+    auth:
+      authenticator: sigv4auth
+    compression: none
+  otlphttp/logs:
+    logs_endpoint: "https://__REPLACE_WITH_OtelLogs_ENDPOINT__"
+    auth:
+      authenticator: sigv4auth
+    compression: none        
+  otlphttp/metrics:
+    metrics_endpoint: "https://__REPLACE_WITH_OtelMetrics_ENDPOINT__"
+    auth:
+      authenticator: sigv4auth
+    compression: none
+
 processors:
   batch:
 
@@ -41,16 +62,17 @@ connectors:
   spanmetrics:
 
 service:
+  extensions: [sigv4auth]
   pipelines:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlp, debug, spanmetrics]
+      exporters: [otlp, debug, spanmetrics, otlphttp/traces]
     metrics:
       receivers: [httpcheck/frontendproxy, redis, otlp, spanmetrics]
       processors: [batch]
-      exporters: [otlphttp/prometheus, debug]
+      exporters: [otlphttp/prometheus, debug, otlphttp/metrics]
     logs:
       receivers: [otlp]
       processors: [batch]
-      exporters: [opensearch, debug]
+      exporters: [opensearch, otlphttp/logs, debug]

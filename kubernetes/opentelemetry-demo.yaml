@@ -148,7 +148,7 @@ data:
         - datasourceUid: webstore-traces
           name: trace_id
         - name: trace_id
-          url: http://localhost:8080/jaeger/ui/trace/$${__value.raw}
+          url: http://0.0.0.0:8080/jaeger/ui/trace/$${__value.raw}
           urlDisplayLabel: View in Jaeger UI
       name: Prometheus
       type: prometheus
@@ -9253,7 +9253,7 @@ spec:
             - --config=/conf/relay.yaml
           securityContext:
             {}
-          image: "otel/opentelemetry-collector-contrib:0.97.0"
+          image: "amazon/aws-otel-collector:v0.38.2"
           imagePullPolicy: IfNotPresent
           ports:
             
@@ -10015,7 +10015,7 @@ spec:
           - name: WEB_OTEL_SERVICE_NAME
             value: frontend-web
           - name: PUBLIC_OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
-            value: http://localhost:8080/otlp-http/v1/traces
+            value: http://0.0.0.0:8080/otlp-http/v1/traces
           - name: OTEL_RESOURCE_ATTRIBUTES
             value: service.name=$(OTEL_SERVICE_NAME),service.namespace=opentelemetry-demo
           resources:
